@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Año Nuevo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f8f8f8;
+      background-image: radial-gradient(circle at 50% 50%, #f8f8f8 0%, #e0e0e0 100%);
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease;
+      max-width: 80%;
+      margin: auto;
+    }
+
+    h1 {
+      color: #ff7e67;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: #333;
+      font-size: 1.2em;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .btn-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff7e67;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 0 10px;
+    }
+
+    button:hover {
+      background-color: #ff5c49;
+    }
+
+    .countdown {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+      p {
+        font-size: 1.1em;
+      }
+      button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+      }
+      .countdown {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>¡Feliz Año Nuevo!</h1>
+    <p>Para mi mejor Amiga</p>
+    <p>Que este nuevo año te traiga alegría y muchos éxitos.</p>
+    <div class="btn-group">
+      <button onclick="cambiarMensaje('¡Feliz Año!')">Felicidades</button>
+      <button onclick="cambiarMensaje('¡Éxito y que todas tus metas se cumplan!')">Éxito</button>
+    </div>
+    <p id="mensaje" style="margin-top: 20px;">¡Que tengas un año increíble!</p>
+    <div class="countdown" id="countdown"></div>
+  </div>
+
+  <script>
+    const mensaje = document.getElementById('mensaje');
+    const countdown = document.getElementById('countdown');
+
+    // Función para cambiar el mensaje
+    const cambiarMensaje = (nuevoMensaje) => {
+      mensaje.textContent = nuevoMensaje;
+      animarMensaje();
+    };
+
+    // Función para animar el mensaje cambiado
+    const animarMensaje = () => {
+      mensaje.style.color = '#ff7e67';
+      mensaje.style.transition = 'color 0.5s';
+
+      setTimeout(() => {
+        mensaje.style.color = '#333';
+      }, 500);
+    };
+
+    // Función para calcular la cuenta regresiva
+    const countDownDate = new Date('Jan 1, 2024 00:00:00').getTime();
+    
+    const actualizarCuentaRegresiva = () => {
+      const now = new Date().getTime();
+      const diferencia = countDownDate - now;
+
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `Tiempo restante: ${dias}d ${horas}h ${minutos}m ${segundos}s`;
+
+      if (diferencia < 0) {
+        clearInterval(intervalo);
+        countdown.classList.add('hidden');
+        mensaje.textContent = '¡Feliz Año Nuevo Mejor Amiga!';
+        mensaje.style.display = 'block';
+      }
+    };
+
+    const intervalo = setInterval(actualizarCuentaRegresiva, 1000);
+  </script>
+</body>
+</html>
+
